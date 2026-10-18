@@ -56,7 +56,7 @@ function ProductPage() {
 
       <div className="grid gap-12 md:grid-cols-2">
         <div>
-          <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] bg-secondary">
+          <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] product-stage">
             <AnimatePresence mode="wait">
               <motion.img
                 key={img}
@@ -66,7 +66,7 @@ function ProductPage() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.35 }}
-                className="absolute inset-0 h-full w-full object-cover"
+                className="absolute inset-0 h-full w-full product-cutout p-8"
               />
             </AnimatePresence>
           </div>
@@ -80,7 +80,7 @@ function ProductPage() {
                   aria-pressed={img === i}
                   className="h-20 w-20 shrink-0 overflow-hidden rounded-xl border-2 border-transparent opacity-60 transition aria-pressed:border-primary aria-pressed:opacity-100"
                 >
-                  <img src={src} alt="" className="h-full w-full object-cover" />
+                  <img src={src} alt="" className="h-full w-full product-cutout p-1" />
                 </button>
               ))}
             </div>

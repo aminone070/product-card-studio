@@ -62,7 +62,7 @@ export function CartLines() {
         const multi = f.product.variants.length > 1;
         return (
           <li key={line.variantId} className="flex gap-4 px-2 py-4">
-            <img src={f.product.images[0]} alt="" className="h-20 w-20 rounded-xl object-cover" />
+            <img src={f.product.images[0]} alt="" className="h-20 w-20 rounded-xl product-stage product-cutout p-1.5" />
             <div className="flex flex-1 flex-col gap-1">
               <p className="text-foreground">{l(f.product.title)}</p>
               {multi && <p className="text-xs text-muted-foreground">{l(f.variant.title)}</p>}
