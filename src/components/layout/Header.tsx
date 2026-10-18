@@ -160,7 +160,7 @@ function SearchDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (o:
                 onClick={() => onOpenChange(false)}
                 className="flex items-center gap-4 rounded-xl p-2 hover:bg-secondary"
               >
-                <img src={p.images[0]} alt="" className="h-14 w-14 rounded-lg object-cover" />
+                <img src={p.images[0]} alt="" className="h-14 w-14 rounded-lg product-stage product-cutout p-1" />
                 <div className="flex-1">
                   <p className="text-foreground">{l(p.title)}</p>
                   <p className="text-sm text-muted-foreground">{formatPrice(lowestPrice(p), locale)}</p>
