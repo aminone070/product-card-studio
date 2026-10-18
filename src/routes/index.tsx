@@ -6,6 +6,7 @@ import { getProduct, products } from "@/data/products";
 import { ProductCard } from "@/components/shared/ProductCard";
 import { Reveal } from "@/components/shared/Reveal";
 import { Newsletter } from "@/components/layout/Footer";
+import { MissionGallery } from "@/components/shared/MissionGallery";
 
 const HERO = getProduct("nayra-hibiscus-dilka")!.images[0];
 
@@ -175,17 +176,12 @@ function Home() {
         <img src={brandMedia.texture} alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover opacity-10" />
         <div className="container-lux relative grid items-center gap-12 md:grid-cols-2">
           <Reveal>
-            <img src={brandMedia.campaign} alt="" loading="lazy" className="aspect-[9/16] max-h-[640px] w-full rounded-[2rem] object-cover shadow-lift" />
+            <MissionGallery images={[brandMedia.campaign, ...brandMedia.reels]} label={t.product.gallery} />
           </Reveal>
           <Reveal delay={0.1}>
             <p className="eyebrow">{t.home.missionEyebrow}</p>
             <h2 className="mt-4 font-display text-4xl text-foreground md:text-6xl">{t.home.missionTitle}</h2>
             <p className="mt-6 text-muted-foreground">{t.home.missionBody}</p>
-            <div className="mt-10 grid grid-cols-5 gap-2">
-              {brandMedia.reels.map((r) => (
-                <img key={r} src={r} alt="" loading="lazy" className="aspect-[9/16] w-full rounded-xl object-cover" />
-              ))}
-            </div>
           </Reveal>
         </div>
       </section>
