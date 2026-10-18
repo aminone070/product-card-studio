@@ -78,7 +78,7 @@ function ProductPage() {
                   onClick={() => setImg(i)}
                   aria-label={t.product.gallery(i + 1)}
                   aria-pressed={img === i}
-                  className="h-20 w-20 shrink-0 overflow-hidden rounded-xl border-2 border-transparent opacity-60 transition aria-pressed:border-primary aria-pressed:opacity-100"
+                  className="h-20 w-20 shrink-0 overflow-hidden rounded-xl product-stage border-2 border-transparent opacity-60 transition aria-pressed:border-primary aria-pressed:opacity-100"
                 >
                   <img src={src} alt="" className="h-full w-full product-cutout p-1" />
                 </button>
