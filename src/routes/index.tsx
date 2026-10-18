@@ -138,7 +138,25 @@ function Home() {
       <section className="bg-secondary/50 py-24">
         <div className="container-lux grid items-center gap-12 md:grid-cols-2">
           <Reveal className="order-2 md:order-1">
-            <img src={spotlight.images[0]} alt={l(spotlight.title)} loading="lazy" className="aspect-square w-full rounded-[2rem] object-cover shadow-soft" />
+            <Link
+              to="/products/$handle"
+              params={{ handle: spotlight.handle }}
+              className="group card-lux block rounded-[2.25rem] p-2"
+              aria-label={l(spotlight.title)}
+            >
+              <div className="product-stage aspect-square overflow-hidden rounded-[1.75rem]">
+                <span aria-hidden className="product-floor absolute inset-x-[22%] bottom-[8%] h-[7%] rounded-full" />
+                <img
+                  src={spotlight.images[0]}
+                  alt={l(spotlight.title)}
+                  loading="lazy"
+                  className="product-cutout absolute inset-0 h-full w-full p-10 transition duration-700 ease-lux group-hover:-translate-y-2 group-hover:scale-[1.04]"
+                />
+                <span className="absolute start-5 top-5 rounded-full bg-background/80 px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-foreground backdrop-blur">
+                  {l(spotlight.tagline)}
+                </span>
+              </div>
+            </Link>
           </Reveal>
           <Reveal delay={0.1} className="order-1 md:order-2">
             <p className="eyebrow">{t.home.spotlightEyebrow}</p>
