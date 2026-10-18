@@ -23,8 +23,14 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
+const RITUALS = {
+  scrub: { step: { en: "Ritual I · Exfoliate", ar: "الطقس ١ · تقشير" }, line: { en: "Ancestral hibiscus, sandalwood & dukhan pastes.", ar: "معاجين الكركديه والصندل والدخان المتوارثة." } },
+  butter: { step: { en: "Ritual II · Nourish", ar: "الطقس ٢ · تغذية" }, line: { en: "Whipped shea, baobab & cocoa for lasting softness.", ar: "شيا وباوباب وكاكاو مخفوقة لنعومة تدوم." } },
+  eye: { step: { en: "Ritual III · Awaken", ar: "الطقس ٣ · إيقاظ" }, line: { en: "Hibiscus eye masks that brighten in 15 minutes.", ar: "ماسكات الكركديه لإشراقة العين في ١٥ دقيقة." } },
+} as const;
+
 function Home() {
-  const { t, l } = useLocale();
+  const { t, l, locale } = useLocale();
   const best = products.filter((p) => p.bestSeller);
   const spotlight = getProduct("nayra-dilka-sandalwood-scent")!;
   const cats = (["scrub", "butter", "eye"] as const).map((c) => ({ c, p: products.find((p) => p.category === c)! }));
@@ -85,16 +91,46 @@ function Home() {
           <p className="eyebrow">{t.home.collectionEyebrow}</p>
           <h2 className="mt-3 font-display text-4xl text-foreground">{t.home.collectionTitle}</h2>
         </Reveal>
-        <div className="mt-10 grid gap-4 md:grid-cols-3">
-          {cats.map(({ c, p }, i) => (
-            <Reveal key={c} delay={i * 0.08}>
-              <Link to="/shop" className="group relative block aspect-[3/4] overflow-hidden rounded-2xl bg-secondary">
-                <img src={p.images[0]} alt="" loading="lazy" className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
-                <div className="bg-hero-fade absolute inset-0" />
-                <span className="absolute bottom-6 start-6 font-display text-3xl text-foreground">{t.home.categories[c]}</span>
-              </Link>
-            </Reveal>
-          ))}
+        <div className="mt-10 grid gap-6 md:grid-cols-3">
+          {cats.map(({ c, p }, i) => {
+            const r = RITUALS[c];
+            const count = products.filter((x) => x.category === c).length;
+            return (
+              <Reveal key={c} delay={i * 0.08}>
+                <Link
+                  to="/shop"
+                  search={{ category: c }}
+                  className="group card-lux flex h-full flex-col overflow-hidden rounded-3xl p-2"
+                >
+                  <div className="product-stage aspect-[4/5] overflow-hidden rounded-[1.25rem]">
+                    <span aria-hidden className="product-floor absolute inset-x-[18%] bottom-[7%] h-[8%] rounded-full" />
+                    <img
+                      src={p.images[0]}
+                      alt=""
+                      loading="lazy"
+                      className="product-cutout absolute inset-0 h-full w-full p-8 transition duration-700 ease-lux group-hover:-translate-y-2 group-hover:scale-[1.05]"
+                    />
+                    <span className="absolute start-4 top-4 rounded-full bg-background/80 px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-foreground backdrop-blur">
+                      {l(r.step)}
+                    </span>
+                    <span className="absolute end-4 top-4 font-display text-2xl text-foreground/60">0{i + 1}</span>
+                  </div>
+                  <div className="flex flex-1 flex-col gap-2 px-4 pb-4 pt-5">
+                    <h3 className="font-display text-3xl leading-tight text-card-foreground">{t.home.categories[c]}</h3>
+                    <p className="text-sm text-muted-foreground">{l(r.line)}</p>
+                    <div className="mt-auto flex items-center justify-between gap-3 pt-4">
+                      <span className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+                        {locale === "ar" ? `${count} ${count === 1 ? "منتج" : "منتجات"}` : `${count} ${count === 1 ? "formula" : "formulas"}`}
+                      </span>
+                      <span className="rounded-full border border-border px-4 py-2 text-xs uppercase tracking-wider text-primary transition group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground group-hover:shadow-glow">
+                        {locale === "ar" ? "اكتشفي ←" : "Explore →"}
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              </Reveal>
+            );
+          })}
         </div>
       </section>
 
