@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useLocale } from "@/app/providers";
 import { isAvailable, lowestPrice, products, type Product } from "@/data/products";
 import { formatPrice } from "@/lib/cart";
@@ -8,11 +8,12 @@ type Sort = "featured" | "low" | "high" | "az";
 type Cat = "all" | Product["category"];
 const MAX = Math.max(...products.map(lowestPrice));
 
-export function Catalog({ bestOnly = false }: { bestOnly?: boolean }) {
+export function Catalog({ bestOnly = false, initialCategory = "all" }: { bestOnly?: boolean; initialCategory?: Cat }) {
   const { t, l, locale } = useLocale();
   const [q, setQ] = useState("");
   const [sort, setSort] = useState<Sort>("featured");
-  const [cat, setCat] = useState<Cat>("all");
+  const [cat, setCat] = useState<Cat>(initialCategory);
+  useEffect(() => setCat(initialCategory), [initialCategory]);
   const [stock, setStock] = useState(false);
   const [max, setMax] = useState(MAX);
 
